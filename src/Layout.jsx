@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
@@ -7,12 +6,14 @@ import {
   Users, 
   FileText, 
   BarChart3, 
+  Settings, 
   LogOut,
   Heart,
   Calendar,
   Upload,
   Shield,
-  Target, // Added User as UserIcon
+  Target,
+  User as UserIcon, // Added User as UserIcon
   ChevronDown // Added ChevronDown
 } from "lucide-react";
 import {
@@ -134,7 +135,7 @@ export default function Layout({ children, currentPageName }) {
   if (!user) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-sage-50 to-stone-50">
-        <style jsx>{`
+        <style>{`
           :root {
             --sage-50: #f6f7f6;
             --sage-100: #e8ebe8;
@@ -195,7 +196,7 @@ export default function Layout({ children, currentPageName }) {
 
   return (
     <SidebarProvider>
-      <style jsx>{`
+      <style>{`
         :root {
           --sage-50: #f6f7f6;
           --sage-100: #e8ebe8;
@@ -206,7 +207,7 @@ export default function Layout({ children, currentPageName }) {
           --sage-600: #485a48;
           --sage-700: #3c4a3c;
           --sage-800: #333b33;
-            --sage-900: #2b322b;
+          --sage-900: #2b322b;
           --stone-50: #fafaf9;
           --stone-100: #f5f5f4;
           --stone-200: #e7e5e4;
