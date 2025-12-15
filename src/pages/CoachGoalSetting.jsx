@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { User } from '@/entities/User';
 import { WeeklyGoals } from '@/entities/WeeklyGoals';
@@ -42,6 +41,16 @@ export default function CoachGoalSetting() {
           const clientList = await User.filter({ user_type: 'client' });
           setClients(clientList);
         }
+        
+        // Initialize weekStart to the current week's Monday
+        const today = new Date();
+        const calculatedWeekStart = startOfWeek(today, { weekStartsOn: 1 });
+        setWeekStart(calculatedWeekStart);
+        
+        console.log("=== 🎯 COACH INITIALIZATION ===");
+        console.log("📅 Today:", format(today, 'yyyy-MM-dd (EEEE)'));
+        console.log("📅 Week Start (Monday):", format(calculatedWeekStart, 'yyyy-MM-dd (EEEE)'));
+        console.log("=== END INITIALIZATION ===\n");
       } catch (e) {
         console.error("Error loading data", e);
       }
