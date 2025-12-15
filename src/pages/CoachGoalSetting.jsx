@@ -25,7 +25,7 @@ export default function CoachGoalSetting() {
   const [clients, setClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState('');
   const [currentUser, setCurrentUser] = useState(null);
-  const [weekStart, setWeekStart] = useState(startOfWeek(new Date(), { weekStartsOn: 1 }));
+  const [weekStart, setWeekStart] = useState(new Date());
   const [goals, setGoals] = useState({});
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -42,14 +42,8 @@ export default function CoachGoalSetting() {
           setClients(clientList);
         }
         
-        // Initialize weekStart to the current week's Monday
-        const today = new Date();
-        const calculatedWeekStart = startOfWeek(today, { weekStartsOn: 1 });
-        setWeekStart(calculatedWeekStart);
-        
         console.log("=== 🎯 COACH INITIALIZATION ===");
-        console.log("📅 Today:", format(today, 'yyyy-MM-dd (EEEE)'));
-        console.log("📅 Week Start (Monday):", format(calculatedWeekStart, 'yyyy-MM-dd (EEEE)'));
+        console.log("📅 Goals start from TODAY:", format(new Date(), 'yyyy-MM-dd (EEEE)'));
         console.log("=== END INITIALIZATION ===\n");
       } catch (e) {
         console.error("Error loading data", e);
@@ -105,7 +99,8 @@ export default function CoachGoalSetting() {
     const weekStartStr = format(weekStart, 'yyyy-MM-dd');
 
     console.log("\n=== 🎯 COACH SAVING WEEKLY GOALS ===");
-    console.log("📅 Week Starting:", weekStartStr);
+    console.log("📅 Goals Start Date:", weekStartStr);
+    console.log("📅 Goals Cover Period:", `${weekStartStr} to ${format(addWeeks(weekStart, 1), 'yyyy-MM-dd')}`);
     console.log("👤 Client ID:", selectedClientId);
     console.log("👨‍⚕️ Coach ID:", currentUser.id);
     console.log("📝 Goals to save:");
@@ -181,13 +176,13 @@ export default function CoachGoalSetting() {
               </Select>
             </div>
             <div className="flex-1">
-              <Label>Week Starting</Label>
+              <Label>Goals Start Date (7-day period from this date)</Label>
               <div className="flex items-center gap-2 mt-1">
                 <Button variant="outline" size="icon" onClick={() => setWeekStart(subWeeks(weekStart, 1))} className="border-sage-200">
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
                 <div className="flex-1 text-center font-medium py-2 px-3 border border-sage-200 rounded-md bg-white">
-                  {format(weekStart, 'MMMM d, yyyy')}
+                  {format(weekStart, 'MMMM d, yyyy')} - {format(addWeeks(weekStart, 1), 'MMMM d, yyyy')}
                 </div>
                 <Button variant="outline" size="icon" onClick={() => setWeekStart(addWeeks(weekStart, 1))} className="border-sage-200">
                   <ChevronRight className="h-4 w-4" />

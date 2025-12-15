@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
+import { Calendar as CalendarIcon, Save, ChevronLeft, ChevronRight } from "lucide-react";
 import { format, subDays, addDays, startOfWeek, getDay } from "date-fns";
 import { toast } from "sonner";
 
@@ -131,20 +131,37 @@ export default function DailyDiary() {
           });
         }
 
-        // Load weekly goals
-        const weekStart = startOfWeek(currentDate, { weekStartsOn: 1 });
-        const weekStartStr = format(weekStart, 'yyyy-MM-dd');
-        
+        // Load weekly goals - find goals where current date falls within the 7-day range
+        const currentDateStr = format(currentDate, 'yyyy-MM-dd');
+
         console.log("\n=== 📋 LOADING WEEKLY GOALS ===");
-        console.log("📅 Week Starting (Monday):", weekStartStr);
+        console.log("📅 Current Date:", currentDateStr);
         console.log("👤 Client ID:", currentUser.id);
-        console.log("🔍 Querying WeeklyGoals where:");
-        console.log("   - client_id:", currentUser.id);
-        console.log("   - week_starting:", weekStartStr);
-        
-        const goals = await base44.entities.WeeklyGoals.filter({
-          client_id: currentUser.id,
-          week_starting: weekStartStr
+        console.log("🔍 Loading all goals for client to check date ranges...");
+
+        // Get all goals for this client and filter by date range
+        const allGoals = await base44.entities.WeeklyGoals.filter({
+          client_id: currentUser.id
+        });
+
+        console.log(`   - Found ${allGoals.length} total goal entries`);
+
+        // Filter goals where current date is within the 7-day period
+        const goals = allGoals.filter(goal => {
+          const goalStart = new Date(goal.week_starting);
+          const goalEnd = addWeeks(goalStart, 1);
+          const current = new Date(currentDate);
+          current.setHours(0, 0, 0, 0);
+          goalStart.setHours(0, 0, 0, 0);
+          goalEnd.setHours(0, 0, 0, 0);
+
+          const isInRange = current >= goalStart && current < goalEnd;
+
+          if (isInRange) {
+            console.log(`   ✓ Goal "${goal.goal}" (${goal.section}) applies: ${goal.week_starting} to ${format(goalEnd, 'yyyy-MM-dd')}`);
+          }
+
+          return isInRange;
         });
         
         console.log("\n✅ Goals Query Result:");
