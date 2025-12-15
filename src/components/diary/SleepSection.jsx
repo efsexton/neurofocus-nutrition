@@ -66,8 +66,8 @@ export default function SleepSection({ sleep, onChange, goal, isInitiallyExpande
               type="number"
               min="0"
               placeholder="e.g., 15"
-              value={sleep.latency_minutes || ''}
-              onChange={(e) => updateSleep('latency_minutes', e.target.value ? parseInt(e.target.value) : null)}
+              value={sleep.latency_minutes ?? ''}
+              onChange={(e) => updateSleep('latency_minutes', e.target.value !== '' ? parseInt(e.target.value) : null)}
               className="border-sage-200"
             />
           </div>
@@ -103,8 +103,8 @@ export default function SleepSection({ sleep, onChange, goal, isInitiallyExpande
             type="number"
             min="0"
             placeholder="e.g., 2"
-            value={sleep.night_wakes || ''}
-            onChange={(e) => updateSleep('night_wakes', e.target.value ? parseInt(e.target.value) : null)}
+            value={sleep.night_wakes ?? ''}
+            onChange={(e) => updateSleep('night_wakes', e.target.value !== '' ? parseInt(e.target.value) : null)}
             className="border-sage-200"
           />
         </div>
