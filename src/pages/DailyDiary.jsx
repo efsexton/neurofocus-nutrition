@@ -3,7 +3,7 @@ import { base44 } from "@/api/base44Client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar as CalendarIcon, Save, ChevronLeft, ChevronRight } from "lucide-react";
-import { format, subDays, addDays, startOfWeek, getDay } from "date-fns";
+import { format, subDays, addDays, startOfWeek, getDay, addWeeks } from "date-fns";
 import { toast } from "sonner";
 
 import DiaryHeader from "../components/diary/DiaryHeader";
