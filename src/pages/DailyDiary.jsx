@@ -16,6 +16,7 @@ import SleepSection from "../components/diary/SleepSection";
 import CravingsSection from "../components/diary/CravingsSection";
 import ExerciseSection from "../components/diary/ExerciseSection";
 import AilmentsSection from "../components/diary/AilmentsSection";
+import HydrationSection from "../components/diary/HydrationSection";
 import CoachFeedbackDisplay from "../components/diary/CoachFeedbackDisplay";
 
 export default function DailyDiary() {
@@ -33,6 +34,7 @@ export default function DailyDiary() {
     abdominal_pain: { quadrant: "none", intensity: 0, timing: "" },
     ailments: [],
     sleep: { hours: null, quality: null, latency_minutes: null, night_wakes: null },
+    hydration: { amount: null, unit: 'glasses' },
     cravings: [],
     exercise: [],
     steps: null
@@ -94,6 +96,7 @@ export default function DailyDiary() {
             abdominal_pain: diary.abdominal_pain || { quadrant: "none", intensity: 0, timing: "" },
             ailments: diary.ailments || [],
             sleep: diary.sleep || { hours: null, quality: null, latency_minutes: null, night_wakes: null },
+            hydration: diary.hydration || { amount: null, unit: 'glasses' },
             cravings: diary.cravings || [],
             exercise: diary.exercise || [],
             steps: diary.steps
@@ -125,6 +128,7 @@ export default function DailyDiary() {
             abdominal_pain: { quadrant: "none", intensity: 0, timing: "" },
             ailments: [],
             sleep: { hours: null, quality: null, latency_minutes: null, night_wakes: null },
+            hydration: { amount: null, unit: 'glasses' },
             cravings: [],
             exercise: [],
             steps: null
@@ -252,6 +256,7 @@ export default function DailyDiary() {
         abdominal_pain: diaryData.abdominal_pain,
         ailments: diaryData.ailments,
         sleep: diaryData.sleep,
+        hydration: diaryData.hydration,
         cravings: diaryData.cravings,
         exercise: diaryData.exercise,
         steps: diaryData.steps
@@ -432,6 +437,13 @@ export default function DailyDiary() {
             ailments={diaryData.ailments}
             onChange={(ailments) => updateDiarySection('ailments', ailments)}
             goal={weeklyGoals.ailments}
+            isInitiallyExpanded={isFirstDayOfWeek}
+          />
+
+          <HydrationSection 
+            hydration={diaryData.hydration}
+            onChange={(hydration) => updateDiarySection('hydration', hydration)}
+            goal={weeklyGoals.hydration}
             isInitiallyExpanded={isFirstDayOfWeek}
           />
 
