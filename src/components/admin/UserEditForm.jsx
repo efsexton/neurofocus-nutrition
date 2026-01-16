@@ -24,9 +24,8 @@ export default function UserEditForm({ user, coaches, onSave, onCancel }) {
         assigned_coach_id: formData.assigned_coach_id || null,
       };
       
-      await base44.entities.User.update(user.id, payload);
+      const updatedUser = await base44.asServiceRole.entities.User.update(user.id, payload);
       
-      const updatedUser = { ...user, ...payload };
       onSave(updatedUser);
       toast.success("User updated successfully!");
     } catch (err) {
