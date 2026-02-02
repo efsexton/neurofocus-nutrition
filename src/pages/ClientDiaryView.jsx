@@ -21,7 +21,8 @@ import {
   Moon,
   Cookie,
   Footprints,
-  MessageSquare
+  MessageSquare,
+  Droplets
 } from 'lucide-react';
 import CoachFeedbackDisplay from '../components/diary/CoachFeedbackDisplay';
 import FeedbackForm from '../components/coach/FeedbackForm';
@@ -349,6 +350,20 @@ export default function ClientDiaryView() {
                     </div>
                   ))}
                 </div>
+             </DiarySectionCard>}
+
+             {diaryEntry.hydration?.amount && <DiarySectionCard title="Hydration" icon={Droplets} color="bg-blue-400">
+                <p><strong>Amount:</strong> {diaryEntry.hydration.amount} {diaryEntry.hydration.unit}</p>
+                {diaryEntry.hydration.unit === 'glasses' && (
+                  <p className="text-sm text-stone-600 mt-1">
+                    ({diaryEntry.hydration.amount * 250}ml)
+                  </p>
+                )}
+                {diaryEntry.hydration.unit === 'litres' && (
+                  <p className="text-sm text-stone-600 mt-1">
+                    ({diaryEntry.hydration.amount * 1000}ml)
+                  </p>
+                )}
              </DiarySectionCard>}
 
              {diaryEntry.cravings?.length > 0 && <DiarySectionCard title="Cravings" icon={Cookie} color="bg-pink-500">
