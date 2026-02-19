@@ -108,6 +108,69 @@ export default function SleepSection({ sleep, onChange, goal, isInitiallyExpande
             className="border-sage-200"
           />
         </div>
+
+        {/* Snoring */}
+        <div className="space-y-2">
+          <Label className="text-stone-700 font-medium">Snoring last night?</Label>
+          <div className="flex gap-3">
+            {['yes', 'no', "don't know"].map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => updateSleep('snoring', sleep.snoring === option ? null : option)}
+                className={`px-4 py-2 rounded-lg border text-sm font-medium capitalize transition-all ${
+                  sleep.snoring === option
+                    ? 'bg-blue-100 border-blue-400 text-blue-800'
+                    : 'bg-white border-sage-200 text-stone-600 hover:bg-sage-50'
+                }`}
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Alcohol within 3 hours of bed */}
+        <div className="space-y-2">
+          <Label className="text-stone-700 font-medium">Alcohol within 3 hours of bed?</Label>
+          <div className="flex gap-3">
+            {['yes', 'no'].map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => updateSleep('alcohol_before_bed', sleep.alcohol_before_bed === option ? null : option)}
+                className={`px-4 py-2 rounded-lg border text-sm font-medium capitalize transition-all ${
+                  sleep.alcohol_before_bed === option
+                    ? 'bg-blue-100 border-blue-400 text-blue-800'
+                    : 'bg-white border-sage-200 text-stone-600 hover:bg-sage-50'
+                }`}
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Caffeine after 2pm */}
+        <div className="space-y-2">
+          <Label className="text-stone-700 font-medium">Caffeine after 2pm?</Label>
+          <div className="flex gap-3">
+            {['yes', 'no'].map((option) => (
+              <button
+                key={option}
+                type="button"
+                onClick={() => updateSleep('caffeine_after_2pm', sleep.caffeine_after_2pm === option ? null : option)}
+                className={`px-4 py-2 rounded-lg border text-sm font-medium capitalize transition-all ${
+                  sleep.caffeine_after_2pm === option
+                    ? 'bg-blue-100 border-blue-400 text-blue-800'
+                    : 'bg-white border-sage-200 text-stone-600 hover:bg-sage-50'
+                }`}
+              >
+                {option.charAt(0).toUpperCase() + option.slice(1)}
+              </button>
+            ))}
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
