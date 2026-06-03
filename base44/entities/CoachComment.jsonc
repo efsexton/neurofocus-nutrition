@@ -1,0 +1,38 @@
+{
+  "name": "CoachComment",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client"
+    },
+    "coach_id": {
+      "type": "string",
+      "description": "ID of the coach"
+    },
+    "diary_id": {
+      "type": "string",
+      "description": "ID of the diary entry"
+    },
+    "comment": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string",
+      "description": "Which section of the diary this comment relates to"
+    }
+  },
+  "required": [
+    "client_id",
+    "coach_id",
+    "comment"
+  ],
+  "rls": {
+    "read": {
+      "created_by": "{{user.email}}"
+    },
+    "write": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

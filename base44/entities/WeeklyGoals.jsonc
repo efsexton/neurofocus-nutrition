@@ -1,0 +1,89 @@
+{
+  "name": "WeeklyGoals",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client"
+    },
+    "coach_id": {
+      "type": "string",
+      "description": "ID of the coach"
+    },
+    "week_starting": {
+      "type": "string",
+      "format": "date"
+    },
+    "section": {
+      "type": "string",
+      "enum": [
+        "food_drink",
+        "energy",
+        "bowel",
+        "stress",
+        "pain",
+        "sleep",
+        "cravings",
+        "exercise",
+        "ailments"
+      ]
+    },
+    "goal": {
+      "type": "string",
+      "description": "The goal for this section this week"
+    },
+    "instructions": {
+      "type": "string",
+      "description": "Detailed instructions from coach"
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "client_id",
+    "coach_id",
+    "week_starting",
+    "section"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "client_id": "{{user.id}}"
+        },
+        {
+          "coach_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "coach_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "name": "CoachFeedback",
+  "type": "object",
+  "properties": {
+    "diary_id": {
+      "type": "string",
+      "description": "ID of the diary entry this feedback is for"
+    },
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client"
+    },
+    "coach_id": {
+      "type": "string",
+      "description": "ID of the coach providing feedback"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the diary entry"
+    },
+    "feedback": {
+      "type": "string",
+      "description": "General feedback from coach"
+    },
+    "action_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ]
+          },
+          "completed": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "description": "Action items for the client"
+    },
+    "positive_notes": {
+      "type": "string",
+      "description": "Positive observations"
+    },
+    "areas_for_improvement": {
+      "type": "string",
+      "description": "Areas to work on"
+    },
+    "questions_for_client": {
+      "type": "string",
+      "description": "Questions coach wants client to consider"
+    }
+  },
+  "required": [
+    "diary_id",
+    "client_id",
+    "coach_id",
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "client_id": "{{user.id}}"
+        },
+        {
+          "coach_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "coach_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "MealTemplate",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client who owns this template"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the meal template (e.g., 'My usual breakfast')"
+    },
+    "description": {
+      "type": "string",
+      "description": "Food description"
+    },
+    "time": {
+      "type": "string",
+      "description": "Typical time for this meal"
+    },
+    "environment": {
+      "type": "string",
+      "description": "Typical eating environment"
+    },
+    "emotions": {
+      "type": "string",
+      "description": "Typical emotions during this meal"
+    },
+    "hunger_before": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5
+    },
+    "fullness_after": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10,
+      "default": 5
+    },
+    "is_favorite": {
+      "type": "boolean",
+      "default": false,
+      "description": "Mark as favorite for quick access"
+    },
+    "usage_count": {
+      "type": "number",
+      "default": 0,
+      "description": "How many times this template has been used"
+    },
+    "last_used_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last time this template was used"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "breakfast",
+        "lunch",
+        "dinner",
+        "snack",
+        "other"
+      ],
+      "default": "other",
+      "description": "Meal category"
+    }
+  },
+  "required": [
+    "client_id",
+    "name",
+    "description"
+  ],
+  "rls": {
+    "read": {
+      "client_id": "{{user.id}}"
+    },
+    "create": {
+      "data_condition": {
+        "client_id": "{{user.id}}"
+      }
+    },
+    "update": {
+      "client_id": "{{user.id}}"
+    },
+    "delete": {
+      "client_id": "{{user.id}}"
+    }
+  }
+}

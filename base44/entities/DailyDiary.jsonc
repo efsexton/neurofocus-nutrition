@@ -1,0 +1,324 @@
+{
+  "name": "DailyDiary",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client"
+    },
+    "assigned_coach_id": {
+      "type": "string",
+      "description": "ID of the coach assigned to the client at time of entry"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "meals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string"
+          },
+          "photo_url": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "environment": {
+            "type": "string"
+          },
+          "emotions": {
+            "type": "string"
+          },
+          "hunger_before": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "fullness_after": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "foods": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "food_id": {
+                  "type": "string"
+                },
+                "food_name": {
+                  "type": "string"
+                },
+                "serving_size": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number",
+                  "default": 1
+                },
+                "calories": {
+                  "type": "number"
+                },
+                "protein_g": {
+                  "type": "number"
+                },
+                "carbs_g": {
+                  "type": "number"
+                },
+                "fat_g": {
+                  "type": "number"
+                },
+                "fiber_g": {
+                  "type": "number"
+                }
+              }
+            },
+            "description": "List of foods with nutritional data"
+          },
+          "total_calories": {
+            "type": "number"
+          },
+          "total_protein": {
+            "type": "number"
+          },
+          "total_carbs": {
+            "type": "number"
+          },
+          "total_fat": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "hydration": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "number",
+          "description": "Amount of water consumed"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "glasses",
+            "ml",
+            "litres"
+          ],
+          "default": "glasses",
+          "description": "Unit of measurement for hydration"
+        }
+      },
+      "description": "Daily water intake tracking"
+    },
+    "energy_morning": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "energy_afternoon": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "energy_evening": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "energy_notes": {
+      "type": "string",
+      "description": "Additional notes about energy levels"
+    },
+    "bowel_movements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string"
+          },
+          "bristol_scale": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 7
+          },
+          "urgency": {
+            "type": "boolean"
+          },
+          "mucus": {
+            "type": "boolean"
+          },
+          "blood": {
+            "type": "boolean"
+          },
+          "odor": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "notes": {
+            "type": "string"
+          },
+          "photo_url": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stress_level": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "stress_sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stress_notes": {
+      "type": "string",
+      "description": "Additional notes about stress"
+    },
+    "abdominal_pain": {
+      "type": "object",
+      "properties": {
+        "quadrant": {
+          "type": "string",
+          "enum": [
+            "upper_left",
+            "upper_centre",
+            "upper_right",
+            "middle_left",
+            "middle_centre",
+            "middle_right",
+            "lower_left",
+            "lower_centre",
+            "lower_right",
+            "none"
+          ]
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "timing": {
+          "type": "string"
+        }
+      }
+    },
+    "ailments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Type of pain/ailment"
+          },
+          "location": {
+            "type": "string",
+            "description": "Where the pain/ailment is located"
+          },
+          "intensity": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Pain intensity rating"
+          },
+          "time_occurred": {
+            "type": "string",
+            "description": "When the ailment occurred"
+          },
+          "duration": {
+            "type": "string",
+            "description": "How long it lasted"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Additional notes about the ailment"
+          }
+        }
+      }
+    },
+    "sleep": {
+      "type": "object",
+      "properties": {
+        "hours": {
+          "type": "number"
+        },
+        "quality": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "latency_minutes": {
+          "type": "number"
+        },
+        "night_wakes": {
+          "type": "number"
+        }
+      }
+    },
+    "cravings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "timing": {
+            "type": "string"
+          },
+          "trigger": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "exercise": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "duration_minutes": {
+            "type": "number"
+          },
+          "rpe": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "calories_burned": {
+            "type": "number"
+          },
+          "feeling_before": {
+            "type": "string"
+          },
+          "feeling_after": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "steps": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "client_id",
+    "date"
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "name": "FoodDatabase",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the food item"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "protein",
+        "vegetable",
+        "fruit",
+        "grain",
+        "dairy",
+        "fat",
+        "snack",
+        "beverage",
+        "condiment",
+        "other"
+      ],
+      "default": "other",
+      "description": "Food category"
+    },
+    "serving_size": {
+      "type": "string",
+      "description": "Standard serving size (e.g., '100g', '1 cup', '1 medium')"
+    },
+    "calories": {
+      "type": "number",
+      "description": "Calories per serving"
+    },
+    "protein_g": {
+      "type": "number",
+      "description": "Protein in grams"
+    },
+    "carbs_g": {
+      "type": "number",
+      "description": "Carbohydrates in grams"
+    },
+    "fat_g": {
+      "type": "number",
+      "description": "Fat in grams"
+    },
+    "fiber_g": {
+      "type": "number",
+      "description": "Dietary fiber in grams"
+    },
+    "sugar_g": {
+      "type": "number",
+      "description": "Sugar in grams"
+    },
+    "sodium_mg": {
+      "type": "number",
+      "description": "Sodium in milligrams"
+    },
+    "vitamin_c_mg": {
+      "type": "number",
+      "description": "Vitamin C in milligrams"
+    },
+    "iron_mg": {
+      "type": "number",
+      "description": "Iron in milligrams"
+    },
+    "calcium_mg": {
+      "type": "number",
+      "description": "Calcium in milligrams"
+    },
+    "is_custom": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether this is a user-added custom food"
+    },
+    "created_by_user_id": {
+      "type": "string",
+      "description": "User ID who created this custom food (if custom)"
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether this food is visible to all users"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for easier searching (e.g., 'low-carb', 'high-protein', 'gluten-free')"
+    }
+  },
+  "required": [
+    "name",
+    "serving_size",
+    "calories"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "is_public": true
+        },
+        {
+          "created_by_user_id": "{{user.id}}"
+        }
+      ]
+    },
+    "create": true,
+    "update": {
+      "$or": [
+        {
+          "created_by_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        {
+          "user_condition": {
+            "user_type": "coach"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

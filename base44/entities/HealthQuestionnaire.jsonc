@@ -1,0 +1,99 @@
+{
+  "name": "HealthQuestionnaire",
+  "type": "object",
+  "properties": {
+    "client_id": {
+      "type": "string",
+      "description": "ID of the client"
+    },
+    "medical_conditions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of current medical conditions"
+    },
+    "medications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Medication name"
+          },
+          "dosage": {
+            "type": "string",
+            "description": "Dosage and frequency"
+          }
+        }
+      },
+      "description": "Current medications with dosage"
+    },
+    "allergies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Food allergies and intolerances"
+    },
+    "dietary_restrictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dietary preferences and restrictions"
+    },
+    "health_goals": {
+      "type": "string",
+      "description": "Primary health goals"
+    },
+    "current_symptoms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Current symptoms experienced"
+    },
+    "baseline_tongue_photo_url": {
+      "type": "string",
+      "description": "URL to baseline tongue photo"
+    },
+    "baseline_stool_photo_url": {
+      "type": "string",
+      "description": "URL to baseline stool photo"
+    },
+    "additional_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "client_id"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "client_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "client_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

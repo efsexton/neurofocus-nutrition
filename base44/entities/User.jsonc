@@ -1,0 +1,34 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "user_type": {
+      "type": "string",
+      "enum": [
+        "coach",
+        "client"
+      ],
+      "default": "client",
+      "description": "Distinguishes between coach and client user types."
+    },
+    "phone": {
+      "type": "string"
+    },
+    "assigned_coach_id": {
+      "type": "string",
+      "description": "ID of the assigned coach for clients"
+    },
+    "onboarding_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "consent_signed": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "phone",
+    "assigned_coach_id"
+  ]
+}
