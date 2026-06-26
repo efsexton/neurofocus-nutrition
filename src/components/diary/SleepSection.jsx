@@ -83,6 +83,21 @@ export default function SleepSection({ sleep, onChange, goal, isInitiallyExpande
           <p className="text-xs text-stone-500">1 = exhausted/groggy &nbsp;·&nbsp; 5 = somewhat rested &nbsp;·&nbsp; 10 = fully refreshed</p>
         </div>
 
+        {/* 1b. Hours Slept */}
+        <div className="space-y-2">
+          <Label className="text-stone-700 font-medium">How many hours did you sleep? <span className="text-stone-400 font-normal">(hours)</span></Label>
+          <Input
+            type="number"
+            min="0"
+            max="24"
+            step="0.5"
+            placeholder="e.g., 7.5"
+            value={sleep.hours ?? ''}
+            onChange={(e) => updateSleep('hours', e.target.value !== '' ? parseFloat(e.target.value) : null)}
+            className="border-sage-200 max-w-xs"
+          />
+        </div>
+
         {/* 2. Sleep Latency */}
         <div className="space-y-2">
           <Label className="text-stone-700 font-medium">2. How long did it take you to fall asleep? <span className="text-stone-400 font-normal">(minutes)</span></Label>
